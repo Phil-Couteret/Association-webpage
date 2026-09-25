@@ -1,0 +1,26 @@
+# Robots.txt for Elektr-Âme
+# https://www.elektr-ame.com
+
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Disallow admin and member-only areas
+User-agent: *
+Disallow: /admin
+Disallow: /member-portal
+Disallow: /api/
+
+# Allow Googlebot to access public API endpoints needed for structured data
+User-agent: Googlebot
+Allow: /api/events-list.php
+Allow: /api/artists-list.php
+Allow: /api/galleries-list.php
+Allow: /api/sitemap.php
+
+# Sitemap location
+Sitemap: https://www.elektr-ame.com/api/sitemap.php
+
+# Crawl-delay (optional, adjust if needed)
+# User-agent: *
+# Crawl-delay: 1

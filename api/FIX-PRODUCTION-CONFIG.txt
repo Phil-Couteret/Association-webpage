@@ -1,0 +1,15 @@
+WHY IT BROKE
+  Local api/config.php (gitignored) is usually SSH tunnel → 127.0.0.1.
+  If that content ever landed on OVH as www/api/config.php, MySQL fails.
+
+WHAT IS CORRECT ON THE SERVER
+  Use the same DB settings as phpMyAdmin / OVH → Databases.
+  NOT 127.0.0.1 on production.
+
+COPY THIS FILE ON THE SERVER AS config.php
+  api/config.SERVER.upload-as-config.php
+  → FTP to www/api/config.php
+  → Set $password to the database password from the OVH panel (same as phpMyAdmin).
+
+YOUR LOCAL api/config.php
+  Stays on your machine for tunnel/dev only. It is NOT deployed by deploy.sh.

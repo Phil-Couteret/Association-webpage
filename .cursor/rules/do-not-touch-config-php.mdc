@@ -1,0 +1,11 @@
+---
+description: Never modify or overwrite api/config.php; server-managed secrets.
+alwaysApply: true
+---
+
+# Do not touch `api/config.php`
+
+- **Do not** read, edit, delete, rename, or merge changes into `api/config.php` unless the user explicitly asks to change that file for this task.
+- **Do not** copy or deploy a template over live `config.php`. Production credentials stay on the server / outside the repo workflow the user uses.
+- **Deployment**: `deploy.sh` already excludes `config.php` from FTP mirror; do not remove that exclusion or add scripts that overwrite it.
+- For new configuration, use environment variables, `payment_config` in the database, or other existing config patterns—**not** edits to `config.php` by default.

@@ -1,0 +1,90 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Production build
+dist/
+dist-ssr/
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment variables
+.env
+.env.local
+.env.production.local
+.env.development.local
+
+# Database config (local only)
+api/config.php
+api/config-local.php
+api/smtp-config.php
+config.php
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Build artifacts
+*.zip
+!deployment/*.zip
+
+# Cursor / IDE
+cursor_current_working_directory.md
+
+# Local scratch / one-off files
+calcul budget boisson.html
+
+# Local test files
+test-*.html
+test-*.php
+debug-*.php
+diagnose-*.php
+
+# Upload directories (media uploaded on server)
+public/artist-images/*
+!public/artist-images/.gitkeep
+public/event-images/*
+!public/event-images/.gitkeep
+public/gallery-images/*
+!public/gallery-images/.gitkeep
+public/event-media/*
+!public/event-media/.gitkeep
+public/sponsor-logos/*
+!public/sponsor-logos/.gitkeep
+
+# Shell scripts (local only) — deploy.sh is tracked so npm run deploy works for everyone
+*.sh
+!database/*.sh
+!deploy.sh
+config.php
+deployment/assets/
+deployment/api/config.php
