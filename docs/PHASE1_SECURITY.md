@@ -83,7 +83,7 @@ each endpoint below, after `session_start()` and the config include.
 - [x] `api/galleries-update.php` → `requireAdminSection('gallery')` (+ `session_start()`). Before: no auth at all.
 - [x] `api/galleries-delete.php` → `requireAdminSection('gallery')` (+ `session_start()`). Before: no auth at all.
 - [x] `api/unarchive-event.php` → `requireAdminSection('events')` (+ `session_start()`). Before: no auth at all.
-- [ ] `api/add-payment-confirmation-template.php`
+- [x] `api/add-payment-confirmation-template.php` → `requireAdminSection('email_automation')` (+ `session_start()`, JSON header). Before: no session, no auth; anyone could trigger it to run `database/add-payment-confirmation-template.sql`. *This is a run-once installer. Remove it once Phase 2 migrations cover it.*
 - [ ] `api/invitations-fix-now.php`  *(no standard guard, only an inline
       `$_SESSION['admin_logged_in']` check with no section check; writes invitation data)*
 - [ ] `api/invitations-fix-link.php`  *(inline session check only; no standard guard)*

@@ -4,7 +4,12 @@
  * Run this script once to add the payment_confirmation template
  */
 
+header('Content-Type: application/json');
+
+session_start();
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/require-admin-section.php';
+requireAdminSection('email_automation');
 
 try {
     $sql = file_get_contents(__DIR__ . '/../database/add-payment-confirmation-template.sql');

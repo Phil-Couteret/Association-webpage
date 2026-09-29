@@ -79,7 +79,7 @@ The work is organised into phases. Detailed docs should live in `docs/`:
 
 The guard exists at `api/require-admin-section.php` (`requireLoggedInAdmin()` /
 `requireAdminSection()`); it just isn't applied everywhere. Endpoints needing it:
-`add-payment-confirmation-template`, `invitations-fix-now`, `invitations-fix-link`,
+`invitations-fix-now`, `invitations-fix-link`,
 `invitations-debug`. The three `invitations-*` endpoints have only an inline
 `$_SESSION['admin_logged_in']` check, with no standard guard and no section check.
 `invitations-fix-now` is called by the admin "Fix link" button and writes data.
