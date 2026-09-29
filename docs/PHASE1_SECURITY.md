@@ -77,11 +77,11 @@ each endpoint below, after `session_start()` and the config include.
 - [ ] `api/upload-gallery-images.php`
 - [ ] `api/upload-gallery-chunk.php`
 - [ ] `api/delete-artist-image.php`
-- [ ] `api/delete-gallery-image.php`
+- [x] `api/delete-gallery-image.php` → `requireAdminSection('gallery')` (+ `session_start()`). Before: no auth at all.
 - [ ] `api/update-artist-image.php`
-- [ ] `api/galleries-create.php`
-- [ ] `api/galleries-update.php`
-- [ ] `api/galleries-delete.php`
+- [x] `api/galleries-create.php` → `requireAnyAdminSection(['gallery','events'])` (+ `session_start()`, was absent). Before: no auth at all.
+- [x] `api/galleries-update.php` → `requireAdminSection('gallery')` (+ `session_start()`). Before: no auth at all.
+- [x] `api/galleries-delete.php` → `requireAdminSection('gallery')` (+ `session_start()`). Before: no auth at all.
 - [ ] `api/unarchive-event.php`
 - [ ] `api/add-payment-confirmation-template.php`
 - [ ] `api/invitations-fix-now.php`  *(no standard guard, only an inline

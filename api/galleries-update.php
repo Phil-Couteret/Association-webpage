@@ -24,10 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'PUT' && $_SERVER['REQUEST_METHOD'] !== 'POST
     exit();
 }
 
+session_start();
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/require-admin-section.php';
 
 // Clear any output buffer
 ob_end_clean();
+
+requireAdminSection('gallery');
 
 try {
     $data = json_decode(file_get_contents('php://input'), true);
