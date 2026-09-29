@@ -92,3 +92,18 @@ from the upload endpoints and validate uploads with `finfo`.
 - The dev API proxy is configured in `vite.config.ts` (`/api` → local PHP).
 - Don't touch anything on the live OVH server from here; this repo is the template,
   not the running Elektr-Âme site.
+
+## Keeping this file current
+
+- **Verify before trusting.** At session start, check the "Known cleanup targets"
+  and "Write endpoints missing an auth guard" lists against the actual repo
+  (e.g. `ls` the listed files; grep each endpoint for `requireLoggedInAdmin` /
+  `requireAdminSection`). These lists can go stale — the repo is the source of truth.
+- **Update in the same commit.** When you complete a phase or checklist item,
+  update the affected CLAUDE.md section *and* tick the matching box in the
+  relevant `docs/PHASE*` checklist in the same commit as the change itself.
+- **Detail in `docs/`, pointers here.** Keep step-by-step plans, checklists and
+  rationale in `docs/`; CLAUDE.md should stay a short orientation with links.
+- **Never make a future session less careful.** Don't remove or soften security
+  warnings, mark something done that wasn't verified, or record anything
+  (credentials, "safe to skip" notes, relaxed rules) that lowers the bar.
