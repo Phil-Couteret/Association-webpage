@@ -12,8 +12,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
+session_start();
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/require-admin-section.php';
 ob_end_clean(); // Clear any output buffer
+
+requireAdminSection('artists');
 
 try {
     // Handle both JSON and form data
