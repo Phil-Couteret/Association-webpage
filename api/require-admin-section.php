@@ -61,6 +61,29 @@ function requireAdminSections(array $sections) {
     }
 }
 
+/**
+ * Require at least one of the listed sections (or superadmin). Use for endpoints shared by several tabs, e.g. gallery uploads from Gallery and Events.
+ *
+ * @param string[] $sections
+ */
+function requireAnyAdminSection(array $sections) {
+    requireLoggedInAdmin();
+    $role = $_SESSION['admin_role'] ?? 'admin';
+    if ($role === 'superadmin') {
+        return;
+    }
+    $perms = ensureAdminPermissionsLoaded();
+    foreach ($sections as $section) {
+        if (in_array($section, $perms)) {
+            return;
+        }
+    }
+    http_response_code(403);
+    header('Content-Type: application/json');
+    echo json_encode(['success' => false, 'message' => 'Access denied to this section']);
+    exit;
+}
+
 function requireAdminSection($section = null) {
     requireLoggedInAdmin();
     if ($section === null) {

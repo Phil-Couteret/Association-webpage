@@ -104,6 +104,10 @@ requireLoggedInAdmin();
 requireAdminSection('gallery');   // or the relevant section
 ```
 
+For an endpoint shared by several tabs (e.g. gallery uploads from both Gallery and
+Events), use `requireAnyAdminSection(['gallery', 'events'])`. The admin needs
+**any** of the listed sections. `requireAdminSections([...])` requires **all** of them.
+
 ---
 
 ## E. Harden file uploads
