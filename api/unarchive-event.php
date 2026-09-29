@@ -11,8 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
+session_start();
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/require-admin-section.php';
 ob_end_clean();
+
+requireAdminSection('events');
 
 try {
     $input = json_decode(file_get_contents('php://input'), true);

@@ -82,7 +82,7 @@ each endpoint below, after `session_start()` and the config include.
 - [x] `api/galleries-create.php` → `requireAnyAdminSection(['gallery','events'])` (+ `session_start()`, was absent). Before: no auth at all.
 - [x] `api/galleries-update.php` → `requireAdminSection('gallery')` (+ `session_start()`). Before: no auth at all.
 - [x] `api/galleries-delete.php` → `requireAdminSection('gallery')` (+ `session_start()`). Before: no auth at all.
-- [ ] `api/unarchive-event.php`
+- [x] `api/unarchive-event.php` → `requireAdminSection('events')` (+ `session_start()`). Before: no auth at all.
 - [ ] `api/add-payment-confirmation-template.php`
 - [ ] `api/invitations-fix-now.php`  *(no standard guard, only an inline
       `$_SESSION['admin_logged_in']` check with no section check; writes invitation data)*
