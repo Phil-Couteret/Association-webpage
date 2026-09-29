@@ -15,8 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
+session_start();
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/config-helper.php';
+require_once __DIR__ . '/require-admin-section.php';
+requireAdminSection('artists');
+// Release the session lock so long uploads don't block this admin's other requests
+session_write_close();
 
 $uploadDir = getUploadDirectory('artist-images/');
 $thumbnailDir = getUploadDirectory('artist-images/thumbnails/');

@@ -73,9 +73,9 @@ each endpoint below, after `session_start()` and the config include.
 
 **Admin-only write endpoints missing a guard — add `requireLoggedInAdmin()` (and a section check where relevant):**
 
-- [ ] `api/upload-artist-images.php`  *(also has `Access-Control-Allow-Origin: *` — remove that, see §E)*
-- [ ] `api/upload-gallery-images.php`
-- [ ] `api/upload-gallery-chunk.php`
+- [x] `api/upload-artist-images.php` → `requireAdminSection('artists')` (+ `session_start()`, then `session_write_close()`). Before: no auth at all. *`Access-Control-Allow-Origin: *` still present, see §E.*
+- [x] `api/upload-gallery-images.php` → `requireAnyAdminSection(['gallery','events'])` (+ `session_start()`, then `session_write_close()`). Before: no auth at all.
+- [x] `api/upload-gallery-chunk.php` → `requireAnyAdminSection(['gallery','events'])` (+ `session_start()`, then `session_write_close()`). Before: no auth at all.
 - [ ] `api/delete-artist-image.php`
 - [x] `api/delete-gallery-image.php` → `requireAdminSection('gallery')` (+ `session_start()`). Before: no auth at all.
 - [ ] `api/update-artist-image.php`
