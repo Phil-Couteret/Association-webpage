@@ -66,12 +66,13 @@ The work is organised into phases. Detailed docs should live in `docs/`:
 
 ## Known cleanup targets (committed by mistake in the initial import)
 
-- Debug/one-off scripts still present: `api/invitations-debug.php`,
-  `api/invitations-fix-now.php`, `api/invitations-fix-link.php`,
-  `api/tax-receipt-test.php`, `api/email-test-send.php`, `api/smtp-test.php`,
-  `database/run-migration-payment-intent-id.php`,
-  `database/setup-payment-tables.php`, `scripts/generate-password-hash.js`.
-- `deployment/` — a ~2 MB pre-built copy of the old site; remove and gitignore.
+- Debug/one-off scripts: `smtp-test.php`, `run-migration-payment-intent-id.php`,
+  `setup-payment-tables.php` and `generate-password-hash.js` have been deleted.
+  `api/email-test-send.php` and `api/tax-receipt-test.php` are kept for now because
+  admin UI buttons call them (see `docs/PHASE1_SECURITY.md` §B). The three
+  `invitations-*` endpoints moved to the auth-guard list below.
+- `deployment/` has been removed and gitignored. Note: `deploy.sh` still copies into
+  `deployment/` and needs a `mkdir -p` or a rework before it's used again.
 - 15 status `.md` notes in the root (STRIPE_PHASE*, FIX_*, *_ROADMAP) — move to `docs/`.
 
 ## Write endpoints missing an auth guard (Phase 1 §D)
@@ -81,8 +82,11 @@ The guard exists at `api/require-admin-section.php` (`requireLoggedInAdmin()` /
 `upload-artist-images`, `upload-gallery-images`, `upload-gallery-chunk`,
 `delete-artist-image`, `delete-gallery-image`, `update-artist-image`,
 `galleries-create`, `galleries-update`, `galleries-delete`, `unarchive-event`,
-`add-payment-confirmation-template`. Also remove `Access-Control-Allow-Origin: *`
-from the upload endpoints and validate uploads with `finfo`.
+`add-payment-confirmation-template`, `invitations-fix-now`, `invitations-fix-link`,
+`invitations-debug`. The three `invitations-*` endpoints have only an inline
+`$_SESSION['admin_logged_in']` check, with no standard guard and no section check.
+`invitations-fix-now` is called by the admin "Fix link" button and writes data.
+Also remove `Access-Control-Allow-Origin: *` from the upload endpoints and validate uploads with `finfo`.
 
 ## Working conventions
 

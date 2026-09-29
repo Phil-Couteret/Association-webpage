@@ -30,9 +30,7 @@ Run from the repo root:
 
 ```bash
 # Debug / test endpoints
-git rm api/invitations-debug.php api/invitations-fix-now.php \
-       api/invitations-fix-link.php api/tax-receipt-test.php \
-       api/email-test-send.php api/smtp-test.php
+git rm api/smtp-test.php
 
 # Run-once migration / setup scripts (belong in the migration system, not shipped)
 git rm database/run-migration-payment-intent-id.php \
@@ -40,8 +38,16 @@ git rm database/run-migration-payment-intent-id.php \
        scripts/generate-password-hash.js
 ```
 
-- [ ] Deleted the debug/test endpoints above.
-- [ ] Deleted the run-once scripts above.
+- [x] Deleted the debug/test endpoints above.
+- [x] Deleted the run-once scripts above (and the `generate-hash` entry in `package.json`).
+- [ ] Decide on `api/email-test-send.php` and `api/tax-receipt-test.php`. They were
+      originally on the delete list, but admin UI buttons call them
+      (`EmailAutomationManager.tsx`, `MembershipDialog.tsx`), so they're kept for now.
+      Both have an inline `$_SESSION['admin_logged_in']` check. Either remove each one
+      together with its button, or switch it to the standard guard.
+- `invitations-debug.php`, `invitations-fix-now.php` and `invitations-fix-link.php`
+  were moved from this list to §D. `invitations-fix-now.php` is called by the admin
+  "Fix link" button (`InvitationsManager.tsx`).
 - [ ] Grep for any others: `grep -rilE "run this once|diagnostic|delete this file|one-time" api database scripts` — review and remove real one-offs (keep genuine `*-template.php` files).
 
 ---
@@ -52,8 +58,10 @@ git rm database/run-migration-payment-intent-id.php \
 git rm -r deployment/        # ~2 MB pre-built site with Elektr-Âme branding/bundles
 ```
 
-- [ ] Removed `deployment/`.
-- [ ] Add to `.gitignore` so it can't return: append `deployment/` and `dist/` and `www/`.
+- [x] Removed `deployment/`.
+- [x] Add to `.gitignore` so it can't return: append `deployment/` and `dist/` and `www/`.
+- [ ] `deploy.sh` still runs `cp -r dist/* deployment/`. Add `mkdir -p deployment`
+      or rework the script before using it again.
 
 ---
 
@@ -76,6 +84,10 @@ each endpoint below, after `session_start()` and the config include.
 - [ ] `api/galleries-delete.php`
 - [ ] `api/unarchive-event.php`
 - [ ] `api/add-payment-confirmation-template.php`
+- [ ] `api/invitations-fix-now.php`  *(no standard guard, only an inline
+      `$_SESSION['admin_logged_in']` check with no section check; writes invitation data)*
+- [ ] `api/invitations-fix-link.php`  *(inline session check only; no standard guard)*
+- [ ] `api/invitations-debug.php`  *(inline session check only; diagnostic, so consider deleting instead)*
 
 **Check individually (may be an include, a public flow, or gateway-verified — confirm before acting):**
 

@@ -4,7 +4,6 @@
   "version": "1.3.3",
   "type": "module",
   "scripts": {
-    "generate-hash": "node scripts/generate-password-hash.js",
     "dev": "vite",
     "build": "vite build",
     "build:ovh": "vite build && cp -r dist/* . && cp -r api . && cp -r database . && cp ovh-deployment/.htaccess .htaccess",

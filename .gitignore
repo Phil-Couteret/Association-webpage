@@ -55,7 +55,6 @@ Thumbs.db
 
 # Build artifacts
 *.zip
-!deployment/*.zip
 
 # Cursor / IDE
 cursor_current_working_directory.md
@@ -86,5 +85,7 @@ public/sponsor-logos/*
 !database/*.sh
 !deploy.sh
 config.php
-deployment/assets/
-deployment/api/config.php
+
+# Build output / pre-built copies (Phase 1 §C)
+deployment/
+www/
