@@ -16,15 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 session_start();
 
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/require-admin-section.php';
+requireAdminSection('invitations');
 
 try {
-    // Check if user is admin
-    if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
-        http_response_code(401);
-        echo json_encode(['error' => 'Unauthorized']);
-        exit();
-    }
-
     $input = json_decode(file_get_contents('php://input'), true);
     $email = $input['email'] ?? null;
     $memberId = isset($input['member_id']) ? (int)$input['member_id'] : null;

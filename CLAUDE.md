@@ -75,15 +75,23 @@ The work is organised into phases. Detailed docs should live in `docs/`:
   `deployment/` and needs a `mkdir -p` or a rework before it's used again.
 - 15 status `.md` notes in the root (STRIPE_PHASE*, FIX_*, *_ROADMAP) — move to `docs/`.
 
-## Write endpoints missing an auth guard (Phase 1 §D)
+## Auth guards on write endpoints (Phase 1 §D)
 
-The guard exists at `api/require-admin-section.php` (`requireLoggedInAdmin()` /
-`requireAdminSection()`); it just isn't applied everywhere. Endpoints needing it:
-`invitations-fix-now`, `invitations-fix-link`,
-`invitations-debug`. The three `invitations-*` endpoints have only an inline
-`$_SESSION['admin_logged_in']` check, with no standard guard and no section check.
-`invitations-fix-now` is called by the admin "Fix link" button and writes data.
-Also remove `Access-Control-Allow-Origin: *` from the upload endpoints and validate uploads with `finfo`.
+Guards live in `api/require-admin-section.php`:
+- `requireAdminSection('x')` implies a login check.
+- `requireAnyAdminSection([...])` is for endpoints shared by several tabs.
+- `requireAdminSections([...])` requires *all* of the listed sections.
+
+Call them after `session_start()` and the `config.php` include. Many older endpoints
+never call `session_start()`, and without it the guard always returns 401.
+
+All 14 endpoints on the §D list are now guarded; see `docs/PHASE1_SECURITY.md` §D
+for before/after per file. Still open in §D: review `open-call-member-helper.php`
+and `payment/sponsor-create-checkout.php` individually. **Only the §D list was
+audited**, so don't assume every other write endpoint in `api/` is guarded.
+Still to do (§E): remove `Access-Control-Allow-Origin: *` from
+`upload-artist-images`, `delete-artist-image` and `update-artist-image`, and
+validate uploads with `finfo`.
 
 ## Working conventions
 
@@ -97,9 +105,9 @@ Also remove `Access-Control-Allow-Origin: *` from the upload endpoints and valid
 ## Keeping this file current
 
 - **Verify before trusting.** At session start, check the "Known cleanup targets"
-  and "Write endpoints missing an auth guard" lists against the actual repo
+  and "Auth guards on write endpoints" sections against the actual repo
   (e.g. `ls` the listed files; grep each endpoint for `requireLoggedInAdmin` /
-  `requireAdminSection`). These lists can go stale — the repo is the source of truth.
+  `requireAdminSection` / `requireAnyAdminSection`). These lists can go stale — the repo is the source of truth.
 - **Update in the same commit.** When you complete a phase or checklist item,
   update the affected CLAUDE.md section *and* tick the matching box in the
   relevant `docs/PHASE*` checklist in the same commit as the change itself.

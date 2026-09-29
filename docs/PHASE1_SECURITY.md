@@ -84,10 +84,10 @@ each endpoint below, after `session_start()` and the config include.
 - [x] `api/galleries-delete.php` → `requireAdminSection('gallery')` (+ `session_start()`). Before: no auth at all.
 - [x] `api/unarchive-event.php` → `requireAdminSection('events')` (+ `session_start()`). Before: no auth at all.
 - [x] `api/add-payment-confirmation-template.php` → `requireAdminSection('email_automation')` (+ `session_start()`, JSON header). Before: no session, no auth; anyone could trigger it to run `database/add-payment-confirmation-template.sql`. *This is a run-once installer. Remove it once Phase 2 migrations cover it.*
-- [ ] `api/invitations-fix-now.php`  *(no standard guard, only an inline
-      `$_SESSION['admin_logged_in']` check with no section check; writes invitation data)*
-- [ ] `api/invitations-fix-link.php`  *(inline session check only; no standard guard)*
-- [ ] `api/invitations-debug.php`  *(inline session check only; diagnostic, so consider deleting instead)*
+- [x] `api/invitations-fix-now.php` → `requireAdminSection('invitations')`. Before: `session_start()` plus an inline `$_SESSION['admin_logged_in']` check with no section check. It writes invitation data and is called by the admin "Fix link" button.
+- [x] `api/invitations-fix-link.php` → `requireAdminSection('invitations')`. Before: inline session check only, with no section check.
+- [x] `api/invitations-debug.php` → `requireAdminSection('invitations')`. Before: inline session check only. *It's a diagnostic, so consider deleting it.*
+- Note: the guard's 401 body is `{"success":false,"message":"Unauthorized"}`, not the old `{"error":"Unauthorized"}`, so a logged-out admin sees the UI's generic error toast.
 
 **Check individually (may be an include, a public flow, or gateway-verified — confirm before acting):**
 
